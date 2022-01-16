@@ -60,4 +60,31 @@
 # CGI Setup -------------------------------------------------------------------
 
 
-print "HELLO!";
+# TEMPLATE START --------------------------------------------------------------
+
+        # Launch the template.
+        # We're not sending any variables to template toolkit
+        # as the dynamic content is handled by AJAX.
+        my $template = Template->new({
+                RELATIVE => 1,
+                INCLUDE_PATH => $templatepath,
+        });
+
+        my $device = "Desktop";
+        my $userAgent = $ENV{'HTTP_USER_AGENT'};
+        if ( index($userAgent, "Mobile") != -1 or index($userAgent, "Android") != -1   ) {
+                $device = "Mobile";
+        }
+
+        my $template_vars = {
+                DeviceType      => $device,
+                RemoteAddress   => $ENV{REMOTE_ADDR},
+        };
+
+	# printf ("<pre>%s</pre>", Dumper($template));
+
+        $template->process('index.tpl', $template_vars)
+                || die "Template process failed: ", $template->error(), "\n";
+
+# TEMPLATE END ----------------------------------------------------------------
+

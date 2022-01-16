@@ -1,2 +1,9 @@
-<h1>TESTING</h1>
-<p>This is obviously a test during setup</p>
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="main.css">
+	</head>
+	<body>
+		TEST
+	</body>
+</html>
