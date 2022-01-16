@@ -1,7 +1,7 @@
 #! /usr/bin/env perl
 
 #
-# Phasmo Helper by Clare Jonsson (wadbolf@gmail.com) 18/02/2021
+# Phasmo Saboteur by Clare Jonsson (wadbolf@gmail.com) 16/01/2022
 # If you use this project in any form, please keep this info here.
 # Thank you.
 #
@@ -16,8 +16,9 @@
         use Template qw(:template );
         use Data::Dumper;
         use DBI;
-        use Quantum::Superpositions;
+	#use Quantum::Superpositions;
         use JSON;
+	use Digest::SHA qw(sha256_hex);
 
 # DEPENDANCIES AND LIBS -------------------------------------------------------
 
