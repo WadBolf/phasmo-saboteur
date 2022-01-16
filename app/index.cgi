@@ -37,11 +37,11 @@
                 eval "use lib('$lib_dir')";     # use lib directory
         }
 
-        # Add Phasmo Library
-        # use Phasmo;
+        # Add Saboteur Library
+        use Saboteur;
 
         # Set database and template-path
-        # my $db = "$site_dir/database/phasmo.sqlite";
+        my $db = "$site_dir/database/saboteur.sqlite";
         my $templatepath = "$site_dir/template";
 
 # SITE LOCATION----------------------------------------------------------------
@@ -55,9 +55,14 @@
         print $cgi->header( -cookie=>$cookie );
 
         # Attempt to connect to database
-        # my $phasmo = new Phasmo($db) or die "Database not found";
+        my $saboteur = new Saboteur($db) or die "Database not found";
 
 # CGI Setup -------------------------------------------------------------------
+
+
+my $sabReturn = $saboteur->TestGet();
+
+
 
 
 # TEMPLATE START --------------------------------------------------------------
@@ -79,6 +84,7 @@
         my $template_vars = {
                 DeviceType      => $device,
                 RemoteAddress   => $ENV{REMOTE_ADDR},
+		inf		=> $sabReturn,
         };
 
 	# printf ("<pre>%s</pre>", Dumper($template));

@@ -4,6 +4,6 @@
 		<link rel="stylesheet" href="main.css">
 	</head>
 	<body>
-		TEST
+		TEST [% inf %]
 	</body>
 </html>
