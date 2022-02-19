@@ -43,6 +43,17 @@ body{
 	padding: 0 8px 0 8px;
 }
 
+.Link{
+	cursor: pointer;
+	color: white;
+}
+
+.Hover:hover{
+	color: #99f;
+}
+
+
+
 .ManageText{
 	font-size: 18px;
 }

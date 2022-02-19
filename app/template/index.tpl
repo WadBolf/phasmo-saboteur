@@ -13,5 +13,6 @@
 		[% IF Page == "Home" %]
 			[% INCLUDE "home.tpl" %]
 		[% END %]
+		[% INCLUDE "PostItFunction.tpl" %]
 	</body>
 </html>
