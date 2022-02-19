@@ -86,6 +86,14 @@
 	{
 		my $mode = $cgi->param("Mode");
 
+		if ($mode eq "LOGOUT")
+		{
+			$session->param('UserTag', "");
+                        $userTag = "";
+			$page = "Login";
+
+		}
+
 		if ($mode eq "LOGIN")
 		{
 			$userTag =  $cgi->param("UserTag");
@@ -108,7 +116,8 @@
 				{
 					$session->param('UserTag', $return->{response});
 					$userTag = $return->{response};
-					$page = "Home";
+					# Setting page to reload to update session and clear form post
+					$page = "Reload ";
 				}
 
 				#$inf = sprintf("<pre>%s</pre>", Dumper($return));

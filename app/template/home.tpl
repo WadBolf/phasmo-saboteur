@@ -12,7 +12,12 @@
 	<div class="ClearFloat"></div>
 </div>
 
-
+<script>
+	function logout()
+	{
+		 postIt({ "Mode": "LOGOUT" });
+	}
+</script>
 
 
 
