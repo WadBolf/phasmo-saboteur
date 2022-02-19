@@ -1,14 +1,11 @@
-CREATE TABLE Users (
+CREATE TABLE Sessions (
         ID INTEGER PRIMARY KEY AUTOINCREMENT,
-        user_name TEXT,
-        password TEXT,
-        session_id INTEGER DEFAULT 0,
-        last_activity INTEGER,
+	gamer_tag TEXT,
+        game_id TEXT,
+        last_activity_epoch INTEGER,
         is_saboteur INTEGER DEFAULT 0,
-        is_sessions_admin INTEGER DEFAULT 0
+	is_game_admin INTEGER DEFAULT 0,
+        gamer_state TEXT DEFAULT "NEW"
 );
 
-CREATE TABLE Config (
-        max_sessions_users INTEGER DEFAULT 4
-);
 

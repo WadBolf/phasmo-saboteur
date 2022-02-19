@@ -57,19 +57,80 @@
         # Attempt to connect to database
         my $saboteur = new Saboteur($db) or die "Database not found";
 
+	my $inf;
+	my $page = "Home";
+	my $userTag = "";
+
+	#$session->param('UserName', '');
+
+	my $ipAddress = $ENV{REMOTE_ADDR};
+
+	# If not logged in, then show the Login page
+       	if ($session->param('UserTag') eq "")
+	{
+		$page = "Login";
+	}
+	else
+	{
+		$userTag = $session->param('UserTag');
+	}
+
 # CGI Setup -------------------------------------------------------------------
 
 
-my $sabReturn = $saboteur->TestGet();
 
+# Do The Stuff ----------------------------------------------------------------
+	my $error = "";
+
+	if ( $cgi->param() )
+	{
+		my $mode = $cgi->param("Mode");
+
+		if ($mode eq "LOGIN")
+		{
+			$userTag =  $cgi->param("UserTag");
+
+			if (!$userTag)
+			{
+				$error = "User Tag Missing";
+			}
+			else
+			{
+				my $return = $saboteur->NewUser({
+					UserTag => $userTag,
+				});
+				
+				if ( $return->{is_error} )
+				{
+					$error = "New User Failed";
+				}
+				else
+				{
+					$session->param('UserTag', $return->{response});
+					$userTag = $return->{response};
+					$page = "Home";
+				}
+
+				#$inf = sprintf("<pre>%s</pre>", Dumper($return));
+			}
+		}
+	}
+	else
+	{
+		$error = "NO Response";
+	}
+	
+	#$inf = $error;
+	
+	
+	
+# Do The Stuff ----------------------------------------------------------------
 
 
 
 # TEMPLATE START --------------------------------------------------------------
 
         # Launch the template.
-        # We're not sending any variables to template toolkit
-        # as the dynamic content is handled by AJAX.
         my $template = Template->new({
                 RELATIVE => 1,
                 INCLUDE_PATH => $templatepath,
@@ -84,7 +145,9 @@ my $sabReturn = $saboteur->TestGet();
         my $template_vars = {
                 DeviceType      => $device,
                 RemoteAddress   => $ENV{REMOTE_ADDR},
-		inf		=> $sabReturn,
+		Page		=> $page,
+		UserTag		=> $userTag, 
+		inf		=> $inf,
         };
 
 	# printf ("<pre>%s</pre>", Dumper($template));
