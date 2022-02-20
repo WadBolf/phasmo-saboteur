@@ -18,7 +18,7 @@
         use DBI;
 	#use Quantum::Superpositions;
         use JSON;
-	use Digest::SHA qw(sha256_hex);
+	#use Digest::SHA qw(sha256_hex);
 
 # DEPENDANCIES AND LIBS -------------------------------------------------------
 
@@ -60,6 +60,7 @@
 	my $inf;
 	my $page = "Home";
 	my $userTag = "";
+	my $error = "";
 
 	#$session->param('UserName', '');
 
@@ -80,19 +81,66 @@
 
 
 # Do The Stuff ----------------------------------------------------------------
-	my $error = "";
 
 	if ( $cgi->param() )
 	{
 		my $mode = $cgi->param("Mode");
 
+		if ($mode eq "CREATESABOTEUR")
+		{
+			my $return = $saboteur->CreateSaboteur({
+				UserTag=> $userTag,
+			});
+		}
+
+		if ($mode eq "REVEALSABOTEUR")
+		{
+			my $return = $saboteur->RevealSaboteur({
+				UserTag => $userTag,
+			});
+		}
+
 		if ($mode eq "LOGOUT")
 		{
+			my $return = $saboteur->LogOutUser({ 
+				UserTag => $userTag,
+			});
+			
 			$session->param('UserTag', "");
                         $userTag = "";
 			$page = "Login";
-
 		}
+
+
+		if ($mode eq "NEWGAME")
+		{
+			my $return = $saboteur->NewGame({
+				UserTag => $userTag,
+			});
+			$page = "Reload";
+		}
+
+		if ($mode eq "JOINGAME")
+		{
+			my $gameID =  $cgi->param("GameID");
+		
+			my $return = $saboteur->CheckGameExists({ GameID => $gameID });
+			
+			if ($return->{response} != 1)
+			{
+				$error = "Game Not Found";
+			}
+			else
+			{
+				my $return = $saboteur->JoinGame({ 
+					UserTag => $userTag, 
+					GameID => $gameID 
+				});
+
+				$page = "Reload";
+			}
+		}
+
 
 		if ($mode eq "LOGIN")
 		{
@@ -107,34 +155,27 @@
 				my $return = $saboteur->NewUser({
 					UserTag => $userTag,
 				});
-				
+			
 				if ( $return->{is_error} )
 				{
 					$error = "New User Failed";
 				}
 				else
 				{
-					$session->param('UserTag', $return->{response});
 					$userTag = $return->{response};
+					$page = "Reload";
+					$session->param('UserTag', $return->{response});
 					# Setting page to reload to update session and clear form post
-					$page = "Reload ";
 				}
-
-				#$inf = sprintf("<pre>%s</pre>", Dumper($return));
 			}
 		}
-	}
+	}#
 	else
 	{
 		$error = "NO Response";
 	}
 	
-	#$inf = $error;
-	
-	
-	
 # Do The Stuff ----------------------------------------------------------------
-
 
 
 # TEMPLATE START --------------------------------------------------------------
@@ -151,11 +192,14 @@
                 $device = "Mobile";
         }
 
+	$saboteur->Cleanup();
+
         my $template_vars = {
                 DeviceType      => $device,
                 RemoteAddress   => $ENV{REMOTE_ADDR},
 		Page		=> $page,
 		UserTag		=> $userTag, 
+		Error		=> $error,
 		inf		=> $inf,
         };
 

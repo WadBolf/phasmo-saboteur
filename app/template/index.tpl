@@ -5,6 +5,8 @@
 		<script src="jquery.min.js"></script>
 	</head>
 	<body>
+		[% INCLUDE "PostItFunction.tpl" %]
+		[% INCLUDE "ajax.tpl" %]
 		[% INCLUDE "header.tpl" %]
 		[% IF Page == "Login" %]
 			[% INCLUDE "login.tpl" %]
@@ -18,8 +20,5 @@
 			<script>location.replace("https://phasmo-saboteur.retrotech.one");</script>
 		[% END %]
 
-		
-
-		[% INCLUDE "PostItFunction.tpl" %]
 	</body>
 </html>

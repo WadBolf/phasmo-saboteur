@@ -2,7 +2,7 @@
 	<br />
 	<div><span><input class="InputBox" id="UserTagInput" type="text" placeholder="User Tag" /></span></div>
 	<br />
-	<div><span class="BigButton Green" onClick="loginClicked();">GO!</span></div>
+	<div><span class="BigButton Green" onClick="loginClicked();">LETS GO!</span></div>
 	<br />
 	<br />
 </div>
