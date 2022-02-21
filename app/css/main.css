@@ -15,6 +15,32 @@ body{
 	color: #4f4;
 }
 
+.UserContainer{
+	background: #666;
+	display: inline-block;
+	width: 170px;
+	height: 110px;
+	margin: 16px;
+	font-size: 16px;
+	padding: 8px;
+	border-radius: 8px;
+	color: white;
+	font-weight: bold;
+}
+
+.UserContainerEvil{
+	background: #a33;
+	display: inline-block;
+	width: 170px;
+	height: 110px;
+	margin: 16px;
+	font-size: 16px;
+	padding: 8px;
+	border-radius: 8px;
+	color: black;
+	font-weight: bold;
+}
+
 .HeaderContainer{
 	background: #000;
 	padding: 8px;
@@ -33,6 +59,16 @@ body{
 	box-shadow: 0 0 15px #644;
 }
 
+
+.ErrorPanel{
+	margin-bottom: 16px;
+	background: #500;
+	padding: 16px;
+	font-size: 23px;
+	text-align: center;
+	border-radius: 12px;
+	box-shadow: 0 0 15px #644;
+}
 
 .SaboteurPanel{
 	margin-bottom: 16px;

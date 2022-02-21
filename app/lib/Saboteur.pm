@@ -91,7 +91,7 @@ sub JoinGame
         }
 
 	my $q = $self->{db}->prepare( q{
-                UPDATE Sessions set game_id = ?, is_game_admin = 0 WHERE gamer_tag = ?;
+                UPDATE Sessions set game_id = ?, is_saboteur = 0, is_game_admin = 0 WHERE gamer_tag = ?;
         } );
 
         if ( !defined( $q ) || !$q->execute( $params->{GameID}, $params->{UserTag} ) )
@@ -296,7 +296,8 @@ sub NewGame
                 {
                         my $q = $self->{db}->prepare( q{
                                 UPDATE Sessions
-                                SET game_id = 0
+                                SET game_id = 0,
+				is_saboteur = 0
                                 WHERE game_id = ?
                         } );
 
@@ -316,7 +317,7 @@ sub NewGame
 	my $gameID = join '' => map $set[rand @set], 1 .. 4 ;
 
 	my $q = $self->{db}->prepare( q{
-                UPDATE Sessions set game_id = ?, is_game_admin = 1 WHERE gamer_tag = ?;
+                UPDATE Sessions set game_id = ?, is_saboteur = 0, is_game_admin = 1 WHERE gamer_tag = ?;
         } );
 
         if ( !defined( $q ) || !$q->execute( $gameID, $params->{UserTag} ) )
@@ -380,7 +381,7 @@ sub Cleanup
 {
 	my ( $self, $params ) = @_;
 
-	my $epoch = time() - 3600;
+	my $epoch = time() - 7200;
 		
 	my $q = $self->{db}->prepare( q{
                 DELETE FROM Sessions

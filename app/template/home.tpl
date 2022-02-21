@@ -1,6 +1,11 @@
 <div class="SaboteurPanel" id="SaboteurPanel" style="display: none;">
 	YOU ARE THE SABOTEUR
 </div>
+[% IF Error != "" %]
+<div class="ErrorPanel" id="ErrorPanel" >
+	[% Error | html %]
+</div>
+[% END %]
 <div class="ManageContainer">
 	<div id="ManageBarInfo" class="ManageTextLarge">
 		<span onClick="joinGame();" id="JoinGame" class="Link Hover">Join Game</span> 
@@ -89,7 +94,7 @@
 				}
 				else
 				{
-					$('#SaboteurPanel').hide(0);
+					$('#SaboteurPanel').hide(500);
 				}
 
 
@@ -99,7 +104,7 @@
 				}
 				else
 				{
-					$('#AdminPanel').hide(0);
+					$('#AdminPanel').hide(500);
 				}
 
 				var reveal = 0
@@ -113,39 +118,39 @@
 				//list users in game
 				var usersHTML = "<hr>";
 				
+				usersHTML += "";
 				for (var n = 0; n < data["UsersInGame"].length; n++ )
 				{
-					var moreInfo = "";
-					var adminInfo = "";
-
-
+					var container = "UserContainer";	
+					var userIcon = "user-icon.png";
 					if ( data["UsersInGame"][n]["is_game_admin"] == 1)
-					{
-						adminInfo = "<span class='Admin'>*</span> ";
+                                        {
+						userIcon = "user-icon-admin.png";
 					}
-
+ 
 					if (reveal == 1 &&  data["UsersInGame"][n]["is_saboteur"] == 1)
-					{
-						usersHTML = usersHTML +
-						'<span class="UserListRow" style="background: #833;">' +
-						adminInfo + data["UsersInGame"][n]["gamer_tag"] +
-						'</span>';
+                                        {
+	
+						userIcon = "user-icon-evil.png";
+						container = "UserContainerEvil";
+						if ( data["UsersInGame"][n]["is_game_admin"] == 1)
+						{
+							userIcon = "user-icon-evil-admin.png";
+						}
 					}
-					else
-					{ 
-						usersHTML = usersHTML +
-						'<span class="UserListRow">' +
-						adminInfo + data["UsersInGame"][n]["gamer_tag"] +
-						'</span>';
-					}
-				}
-			
-				$('#UserList').html(usersHTML);
 
+					usersHTML += '<span class="' + container + '">' +
+					'<img src="' + userIcon +'" height="80px">' +
+					'<div>' + data["UsersInGame"][n]["gamer_tag"] + '</div>' +
+					'</span>';
+				}
+
+				$('#UserList').html(usersHTML);
 			}
 			else
 			{
 				$('#GameID').html( "" );
+				$('#UserList').html("");
 			}
 		}
 	}

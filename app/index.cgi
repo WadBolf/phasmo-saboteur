@@ -91,6 +91,7 @@
 			my $return = $saboteur->CreateSaboteur({
 				UserTag=> $userTag,
 			});
+			$page = "Reload";
 		}
 
 		if ($mode eq "REVEALSABOTEUR")
@@ -98,6 +99,7 @@
 			my $return = $saboteur->RevealSaboteur({
 				UserTag => $userTag,
 			});
+			$page = "Reload";
 		}
 
 		if ($mode eq "LOGOUT")
@@ -148,7 +150,7 @@
 
 			if (!$userTag)
 			{
-				$error = "User Tag Missing";
+				#$error = "User Tag Missing";
 			}
 			else
 			{
@@ -158,7 +160,7 @@
 			
 				if ( $return->{is_error} )
 				{
-					$error = "New User Failed";
+					#$error = "New User Failed";
 				}
 				else
 				{
@@ -172,7 +174,7 @@
 	}#
 	else
 	{
-		$error = "NO Response";
+		#$error = "NO Response";
 	}
 	
 # Do The Stuff ----------------------------------------------------------------
