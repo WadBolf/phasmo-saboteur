@@ -1,5 +1,5 @@
 <div class="HeaderContainer">
-	<img height="80px" src="Logo.png">
+	<img height="120px" src="Logo.png">
 	[% IF UserTag != "" %]
 		<hr>
 		<div class="ManageText">

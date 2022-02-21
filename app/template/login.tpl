@@ -20,6 +20,15 @@
 			postIt({ "Mode": "LOGIN", "UserTag": userTagInput });
 		}
 	}
+	$('#UserTagInput').focus();
+	
+	$('#UserTagInput').keydown( function(e)
+	{
+		if (e.keyCode == 13)
+		{
+			loginClicked();
+		}
+	});
 </script>
 
 [% inf %]

@@ -456,7 +456,48 @@ sub LogOutUser
 	};
 }
 
+sub UpdateActivity
+{
+	my ( $self, $params ) = @_;
 
+        # Required Params
+        my @required = q{UserTag};
+        foreach my $req ( @required )
+        {
+                if (!$params->{ $req } )
+                {
+                        return {
+                                is_error => 1,
+                                response => "MISSING PARAMS: ",
+                        };
+                }
+        }
+
+	my $epoch = time();
+
+        my $q = $self->{db}->prepare( q{
+                UPDATE Sessions
+                SET last_activity_epoch = ?
+                WHERE
+                gamer_tag = ?
+        } );
+
+        if ( !defined( $q ) || !$q->execute( $epoch, $params->{UserTag} ) )
+        {
+                return {
+                        is_error => 1,
+                        response => "Could not update last activity",
+                };
+        }
+
+
+        return {
+                is_error => 0,
+                response => "OK",
+        };
+
+	
+}
 
 sub NewUser
 {
@@ -476,7 +517,7 @@ sub NewUser
         }
 
 	my @set = ('0' ..'9');
-	my $userTag = sprintf("%s_%s", $params->{UserTag},  join '' => map $set[rand @set], 1 .. 8 );
+	my $userTag = sprintf("%s_%s", $params->{UserTag},  join '' => map $set[rand @set], 1 .. 4 );
 	my $epoch = time();
 
 	my $q = $self->{db}->prepare( q{

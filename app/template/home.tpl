@@ -23,12 +23,22 @@
 	</div>
 </div>
 <div class="AdminPanel" id="AdminPanel" style="display: none;">
-	<span class="Link Hover" onClick="createSaboteur();">Create Saboteur</span>
-	<span class="Divider">|</span>
-	<span class="Link Hover" OnClick="revealSaboteur();">Reveal Saboteur</span>
+	<span class="ButtonAction" onClick="createSaboteur();">Create Saboteur</span>
+	<span class="ButtonAction" OnClick="revealSaboteur();">Reveal Saboteur</span>
 </div>
 
 <script>
+
+        $('#GameIDInput').keydown( function(e)
+        {
+                if (e.keyCode == 13)
+                {
+                        joinPressed();
+                }
+        });
+
+
+
 	function logout()
 	{
 		 postIt({ "Mode": "LOGOUT" });
@@ -43,6 +53,7 @@
         {
                 $('#ManageBarInfo').hide(200);
                 $('#ManageBarJoin').show(200);
+		$('#GameIDInput').focus();
         }
 
 	function cancelPressed()
@@ -53,12 +64,22 @@
 
 	function createSaboteur()
 	{
-		postIt({ "Mode": "CREATESABOTEUR" });
+		hideStuff();
+		//postIt({ "Mode": "CREATESABOTEUR" });
+		get_data("CREATESABOTEUR",  "");
 	}
 
 	function revealSaboteur()
 	{
-		postIt({ "Mode": "REVEALSABOTEUR" });
+		hideStuff();
+		//postIt({ "Mode": "REVEALSABOTEUR" });
+		get_data("REVEALSABOTEUR",  "");
+	}
+
+	function hideStuff()
+	{
+		$('#SaboteurPanel').hide(200);
+		$('#AdminPanel').hide(200);
 	}
 	
 	function joinPressed()
@@ -72,7 +93,7 @@
 
 
 	function runApp(){
-		var delay = Math.floor(Math.random() *3000) + 2000;
+		var delay = Math.floor(Math.random() * 2000) + 1000;
 		get_data("GetMe",  "");
     		setTimeout(runApp, delay);
 	}	
@@ -140,8 +161,8 @@
 					}
 
 					usersHTML += '<span class="' + container + '">' +
-					'<img src="' + userIcon +'" height="80px">' +
-					'<div>' + data["UsersInGame"][n]["gamer_tag"] + '</div>' +
+					'<img src="' + userIcon +'" height="150px">' +
+					'<div>' + data["UsersInGame"][n]["gamer_tag"].substring(0,17) + '</div>' +
 					'</span>';
 				}
 
@@ -157,4 +178,9 @@
 
 </script>
 
+[% IF Error != "" %]
+	<script>
+		joinGame();
+	</script>
+[% END %]
 [% inf %]

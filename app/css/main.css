@@ -18,12 +18,12 @@ body{
 .UserContainer{
 	background: #666;
 	display: inline-block;
-	width: 170px;
-	height: 110px;
+	width: 290px;
+	height: 210px;
 	margin: 16px;
-	font-size: 16px;
+	font-size: 30px;
 	padding: 8px;
-	border-radius: 8px;
+	border-radius: 16px;
 	color: white;
 	font-weight: bold;
 }
@@ -31,14 +31,30 @@ body{
 .UserContainerEvil{
 	background: #a33;
 	display: inline-block;
-	width: 170px;
-	height: 110px;
+	width: 290px;
+	height: 210px;
 	margin: 16px;
-	font-size: 16px;
+	font-size: 30px;
 	padding: 8px;
-	border-radius: 8px;
+	border-radius: 16px;
 	color: black;
 	font-weight: bold;
+}
+
+.ButtonAction{
+	display: inline-block;
+	background: #733;
+	padding: 8px 16px 8px 16px;
+	width: 200px;
+	border-radius: 8px;
+	cursor: pointer;
+	margin: 0 8px 0 8px;
+}
+
+
+.ButtonAction:hover{
+
+	background: #955;
 }
 
 .HeaderContainer{
@@ -74,7 +90,7 @@ body{
 	margin-bottom: 16px;
 	background: #500;
 	padding: 16px;
-	font-size: 23px;
+	font-size: 30px;
 	text-align: center;
 	border-radius: 12px;
 	box-shadow: 0 0 15px #644;
@@ -167,7 +183,7 @@ hr{
 }
 
 .ManageText{
-	font-size: 24px;
+	font-size: 34px;
 }
 
 .ManageTextLarge{

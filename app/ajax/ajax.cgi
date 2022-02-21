@@ -97,10 +97,38 @@
 		});
         }
         else
-        {	
+        {
+		$userTag = $session->param('UserTag');
+
+		if ($params->{"Mode"} eq "CREATESABOTEUR")
+                {
+                        $saboteur->CreateSaboteur({
+                                UserTag=> $userTag,
+                        });
+			$json = encode_json({
+				is_error => 0,
+				response => {
+					mode  => $params->{"Mode"},
+				},
+			});
+                }
+	
+		if ($params->{"Mode"} eq "REVEALSABOTEUR")
+                {
+                        $saboteur->RevealSaboteur({
+                                UserTag => $userTag,
+                        });
+			$json = encode_json({
+				is_error => 0,
+				response => {
+					mode  => $params->{"Mode"},
+				},
+			});
+                }
+
+
 		if ($params->{"Mode"} eq "GetMe")
 		{
-			$userTag = $session->param('UserTag');
 			my $user = $saboteur->GetUser({ Gamer_Tag => $userTag });
 			if ($user->{is_error})
 			{
@@ -114,6 +142,11 @@
 			}
 			else
 			{
+
+				$saboteur->UpdateActivity({
+					UserTag => $userTag,
+				});
+
 				my $usersInGame = {};
 				if ( $user->{response}->{game_id} )
 				{
