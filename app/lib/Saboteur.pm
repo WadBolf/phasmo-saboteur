@@ -475,21 +475,36 @@ sub UpdateActivity
 
 	my $epoch = time();
 
-        my $q = $self->{db}->prepare( q{
-                UPDATE Sessions
-                SET last_activity_epoch = ?
-                WHERE
-                gamer_tag = ?
-        } );
+	my $user = $self->GetUser({
+		Gamer_Tag => $params->{UserTag}
+	});
 
-        if ( !defined( $q ) || !$q->execute( $epoch, $params->{UserTag} ) )
-        {
-                return {
-                        is_error => 1,
-                        response => "Could not update last activity",
-                };
-        }
+	if ($user->{is_error})
+	{
+		return {
+			is_error => 1,
+			response => "Unable to find use while updating activity",
+		};
+	}
 
+	# Only update every 30 seconds
+	if ( $epoch > ($user->{response}->{last_activity_epoch} + 30) )
+	{
+		my $q = $self->{db}->prepare( q{
+			UPDATE Sessions
+			SET last_activity_epoch = ?
+			WHERE
+			gamer_tag = ?
+		} );
+
+		if ( !defined( $q ) || !$q->execute( $epoch, $params->{UserTag} ) )
+		{
+			return {
+				is_error => 1,
+				response => "Could not update last activity",
+			};
+		}
+	}
 
         return {
                 is_error => 0,

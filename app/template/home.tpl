@@ -103,7 +103,7 @@
 
 	function ajaxReturn(data)
 	{
-		console.log(data);
+		//console.log(data);
 		if (data["mode"] == "GetMe")
 		{
 			if (data["User"]["game_id"] != 0)
