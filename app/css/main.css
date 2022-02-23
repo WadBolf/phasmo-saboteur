@@ -18,10 +18,10 @@ body{
 .UserContainer{
 	background: #666;
 	display: inline-block;
-	width: 190px;
-	height: 160px;
+	width: 180px;
+	height: 140px;
 	margin: 16px;
-	font-size: 24px;
+	font-size: 20px;
 	padding: 8px;
 	border-radius: 16px;
 	color: white;
@@ -31,10 +31,10 @@ body{
 .UserContainerEvil{
 	background: #a33;
 	display: inline-block;
-	width: 190px;
-	height: 160px;
+	width: 180px;
+	height: 140px;
 	margin: 16px;
-	font-size: 24px;
+	font-size: 20px;
 	padding: 8px;
 	border-radius: 16px;
 	color: black;
@@ -42,7 +42,7 @@ body{
 }
 
 .UserIcon{
-	width: 110px;
+	width: 100px;
 }
 
 .ButtonAction{
