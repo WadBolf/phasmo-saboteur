@@ -26,7 +26,14 @@
 				}
 				else
 				{
-					console.log("AJAX Error: 101");
+					if (data["response"]["logoff"] == 1)
+					{
+						postIt({ "Mode": "LOGOUT" }); 
+					}
+					else
+					{
+						console.log("AJAX Error: 101");
+					}
 				}
 
                         },

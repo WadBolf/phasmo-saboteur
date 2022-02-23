@@ -135,8 +135,9 @@
 				$json = encode_json({
 					is_error => 1,
 					response => {
-						error => "Error getting user",
-						mode  => $params->{"Mode"},
+						error  => "Error getting user",
+						mode   => $params->{"Mode"},
+						logoff => 1,
 					},
 				});
 			}
@@ -171,6 +172,7 @@
 						User	    => $user->{response},
 						UsersInGame => $usersInGame,
 						mode	    => $params->{"Mode"}, 
+						logoff	    => 0,
 					},
 				});
 			}
