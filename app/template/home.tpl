@@ -161,7 +161,7 @@
 					}
 
 					usersHTML += '<span class="' + container + '">' +
-					'<img src="' + userIcon +'" height="150px">' +
+					'<img src="' + userIcon +'" class="UserIcon">' +
 					'<div>' + data["UsersInGame"][n]["gamer_tag"].substring(0,17) + '</div>' +
 					'</span>';
 				}

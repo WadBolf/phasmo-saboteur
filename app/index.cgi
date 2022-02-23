@@ -57,6 +57,12 @@
         # Attempt to connect to database
         my $saboteur = new Saboteur($db) or die "Database not found";
 
+	my $device = "Desktop";
+        my $userAgent = $ENV{'HTTP_USER_AGENT'};
+        if ( index($userAgent, "Mobile") != -1 or index($userAgent, "Android") != -1   ) {
+                $device = "Mobile";
+        }
+
 	my $inf;
 	my $page = "Home";
 	my $userTag = "";
@@ -202,6 +208,7 @@
 		Page		=> $page,
 		UserTag		=> $userTag, 
 		Error		=> $error,
+		DeviceType	=> $device,
 		inf		=> $inf,
         };
 

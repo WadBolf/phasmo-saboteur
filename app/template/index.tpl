@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" href="main.css">
+		[% IF DeviceType == "Desktop" %]
+			<link rel="stylesheet" href="main.css">
+		[% ELSE %]
+			<link rel="stylesheet" href="main-mobile.css">
+		[% END %]
 		<script src="jquery.min.js"></script>
 	</head>
 	<body>
