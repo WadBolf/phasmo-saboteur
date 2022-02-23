@@ -49,11 +49,12 @@ body{
 .ButtonAction{
 	display: inline-block;
 	background: #733;
-	padding: 8px 16px 8px 16px;
-	width: 200px;
+	padding: 8px 18px 8px 18px;
+	width: 270px;
 	border-radius: 8px;
 	cursor: pointer;
 	margin: 0 8px 0 8px;
+	font-size: 35px;
 }
 
 
@@ -104,7 +105,7 @@ body{
 .AdminPanel{
 	margin-bottom: 16px;
 	background: #000;
-	padding: 16px;
+	padding: 20px;
 	font-size: 23px;
 	text-align: center;
 	border-radius: 12px;
